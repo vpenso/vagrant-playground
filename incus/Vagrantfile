@@ -1,0 +1,33 @@
+# vi: set ft=ruby :
+
+apt_repository = "
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: bookworm
+Components: main
+Architectures: amd64
+Signed-By: /etc/apt/keyrings/zabbly.asc
+"
+
+Vagrant.configure("2") do |config|
+  config.vm.define "incus"
+  config.vm.hostname = "incus"
+  config.vm.box = "debian/bookworm64"
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = 4096
+    libvirt.nested = true
+    libvirt.cpu_mode = "host-passthrough"
+  end
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provision "shell", privileged: true , inline: <<-SHELL
+        apt-get update
+        apt-get install -y curl
+        mkdir -p /etc/apt/keyrings
+        curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
+        echo "#{apt_repository}" > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+        apt-get update && apt-get install -y incus
+        incus admin init --minimal
+        usermod --append --groups incus vagrant
+  SHELL
+end
