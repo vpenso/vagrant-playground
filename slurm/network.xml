@@ -1,0 +1,23 @@
+<network xmlns:dnsmasq='http://libvirt.org/schemas/network/dnsmasq/1.0'>
+  <name>custom</name>
+  <uuid>356e5daf-3b06-49d5-98fd-178e847cf559</uuid>
+  <forward mode='nat'/>
+  <bridge name='virbr9' stp='on' delay='0'/>
+  <mac address='52:54:00:aa:da:73'/>
+  <ip address='192.168.200.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.200.2' end='192.168.200.254'/>
+      <host mac='52:54:00:00:00:02' name='wlm1' ip='192.168.200.2' />
+      <host mac='52:54:00:00:00:12' name='wlm2' ip='192.168.200.3' />
+      <host mac='52:54:00:00:00:22' name='db1' ip='192.168.200.4' />
+      <host mac='52:54:00:00:00:32' name='db2' ip='192.168.200.5' />
+      <host mac='52:54:00:00:00:03' name='ex0' ip='192.168.200.20' />
+      <host mac='52:54:00:00:00:04' name='ex1' ip='192.168.200.21' />
+      <host mac='52:54:00:00:00:05' name='ex2' ip='192.168.200.22' />
+      <host mac='52:54:00:00:00:06' name='ex3' ip='192.168.200.22' />
+    </dhcp>
+  </ip>
+  <dnsmasq:options>
+    <dnsmasq:option value='dhcp-ignore=tag:!known'/>
+  </dnsmasq:options>
+</network>
