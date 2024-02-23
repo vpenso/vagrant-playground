@@ -4,7 +4,7 @@ apt_repository = "
 Enabled: yes
 Types: deb
 URIs: https://pkgs.zabbly.com/incus/stable
-Suites: bookworm
+Suites: jammy
 Components: main
 Architectures: amd64
 Signed-By: /etc/apt/keyrings/zabbly.asc
@@ -13,7 +13,7 @@ Signed-By: /etc/apt/keyrings/zabbly.asc
 Vagrant.configure("2") do |config|
   config.vm.define "incus"
   config.vm.hostname = "incus"
-  config.vm.box = "debian/bookworm64"
+  config.vm.box = "generic/ubuntu2204"
   config.vm.provider :libvirt do |libvirt|
     libvirt.memory = 4096
     libvirt.cpus = 2
