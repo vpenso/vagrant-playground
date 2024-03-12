@@ -1,6 +1,7 @@
 
-JupyterHub Docker Example, GitHub
-<https://github.com/jupyterhub/jupyterhub-deploy-docker>
+[JupyterHub Docker Example][[xk7j7], GitHub
+
+[xk7j7]: https://github.com/jupyterhub/jupyterhub-deploy-docker
 
 ```sh
 vagrant up
