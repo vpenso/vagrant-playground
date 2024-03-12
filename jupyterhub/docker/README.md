@@ -1,5 +1,5 @@
 
-[JupyterHub Docker Example][[xk7j7], GitHub
+[JupyterHub Docker Example][xk7j7], GitHub
 
 [xk7j7]: https://github.com/jupyterhub/jupyterhub-deploy-docker
 
