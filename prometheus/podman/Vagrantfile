@@ -1,0 +1,15 @@
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.box = "rockylinux/9"
+  config.vm.network "private_network", ip: "192.168.124.11"
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = 1024
+    libvirt.qemu_use_session = false
+  end
+  config.vm.provision "shell", privileged: true , inline: <<-SHELL
+    systemctl disable --now firewalld
+    setenforce Permissive
+    dnf install -y podman
+  SHELL
+end
