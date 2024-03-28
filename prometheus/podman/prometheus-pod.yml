@@ -1,7 +1,11 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.6.1
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: "2024-03-28T06:18:45Z"
+  creationTimestamp: "2024-03-28T10:08:17Z"
   labels:
     app: prometheus
   name: prometheus
@@ -26,27 +30,27 @@ spec:
     name: prometheus-server
     securityContext: {}
     volumeMounts:
-    - mountPath: /etc/prometheus/prometheus.yml
-      name: vagrant-prometheus.yml-host-0
+    - mountPath: /etc/prometheus
+      name: etc-prometheus-host-0
       readOnly: true
     - mountPath: /prometheus,ro=false
-      name: vagrant-data-host-1
+      name: srv-prometheus-host-1
     - mountPath: /prometheus
-      name: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a-pvc
+      name: b54e2c57ea2c38acd5d4b296a9b497d5cd4cbb900e37bf4eaeebbdbac1495a61-pvc
   volumes:
-  - name: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a-pvc
-    persistentVolumeClaim:
-      claimName: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a
   - hostPath:
       path: /
       type: Directory
     name: root-host-0
   - hostPath:
-      path: /vagrant/prometheus.yml
-      type: File
-    name: vagrant-prometheus.yml-host-0
-  - hostPath:
-      path: /vagrant/data
+      path: /etc/prometheus
       type: Directory
-    name: vagrant-data-host-1
+    name: etc-prometheus-host-0
+  - hostPath:
+      path: /srv/prometheus
+      type: Directory
+    name: srv-prometheus-host-1
+  - name: b54e2c57ea2c38acd5d4b296a9b497d5cd4cbb900e37bf4eaeebbdbac1495a61-pvc
+    persistentVolumeClaim:
+      claimName: b54e2c57ea2c38acd5d4b296a9b497d5cd4cbb900e37bf4eaeebbdbac1495a61
 

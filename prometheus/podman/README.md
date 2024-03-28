@@ -8,3 +8,11 @@ Files | Description
 
 [01]: prometheus-pod.yml
 [02]: prometheus.yml
+
+```sh
+# after modifications to the configuration …restart the server
+podman restart prometheus-prometheus-server
+# check the logs
+podman logs prometheus-prometheus-server
+```
+

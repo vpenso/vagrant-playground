@@ -14,7 +14,8 @@ Vagrant.configure("2") do |config|
   SHELL
   config.vm.provision "shell", inline: <<-SHELL
     cd /vagrant
-    mkdir data
+    mkdir -p /etc/prometheus/scrape_config.d /srv/prometheus
+    cp prometheus.yml /etc/prometheus
     podman play kube prometheus-pod.yml
   SHELL
 end
