@@ -9,7 +9,19 @@ Files | Description
 [01]: prometheus-pod.yml
 [02]: prometheus.yml
 
+### Configuration
+
 ```sh
+cat > /etc/prometheus/scrape_config.d/promlab.yml <<EOF
+scarpe_config:
+- job_name: 'promlab'
+  static_configs:
+  - targets:
+    - demo.promlabs.com:10000
+    - demo.promlabs.com:10001
+    - demo.promlabs.com:10002
+EOF
+
 # after modifications to the configuration …restart the server
 podman restart prometheus-prometheus-server
 # check the logs
