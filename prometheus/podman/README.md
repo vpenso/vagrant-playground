@@ -11,9 +11,11 @@ Files | Description
 
 ### Configuration
 
+Example of extending the scraper configuration…
+
 ```sh
 cat > /etc/prometheus/scrape_config.d/promlab.yml <<EOF
-scarpe_config:
+scrape_configs:
 - job_name: 'promlab'
   static_configs:
   - targets:
@@ -24,7 +26,8 @@ EOF
 
 # after modifications to the configuration …restart the server
 podman restart prometheus-prometheus-server
-# check the logs
+
+# check the logs for errers in the configuration
 podman logs prometheus-prometheus-server
 ```
 
