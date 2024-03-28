@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-03-28T06:18:45Z"
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  containers:
+  - image: quay.io/prometheus/node-exporter:v1.7.0
+    name: node-exporter
+    ports:
+    - containerPort: 9090
+      hostPort: 9090
+    securityContext: {}
+    volumeMounts:
+    - mountPath: /host
+      name: root-host-0
+      readOnly: true
+  - args:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --storage.tsdb.path=/prometheus
+    - --web.console.libraries=/usr/share/prometheus/console_libraries
+    - --web.console.templates=/usr/share/prometheus/consoles
+    image: quay.io/prometheus/prometheus:v2.45.4
+    name: prometheus-server
+    securityContext: {}
+    volumeMounts:
+    - mountPath: /etc/prometheus/prometheus.yml
+      name: vagrant-prometheus.yml-host-0
+      readOnly: true
+    - mountPath: /prometheus,ro=false
+      name: vagrant-data-host-1
+    - mountPath: /prometheus
+      name: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a-pvc
+  volumes:
+  - name: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a-pvc
+    persistentVolumeClaim:
+      claimName: bd39723061f6059efc4a56eda96578dd9a46dcfc3b539c63b4bd0ffa4e7e673a
+  - hostPath:
+      path: /
+      type: Directory
+    name: root-host-0
+  - hostPath:
+      path: /vagrant/prometheus.yml
+      type: File
+    name: vagrant-prometheus.yml-host-0
+  - hostPath:
+      path: /vagrant/data
+      type: Directory
+    name: vagrant-data-host-1
+
