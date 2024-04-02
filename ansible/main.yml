@@ -1,0 +1,8 @@
+---
+- hosts: http_server
+  become: true
+  tasks:
+    - name: Install dependency packages
+      ansible.builtin.package:
+        name: httpd
+        state: installed
