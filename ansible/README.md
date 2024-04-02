@@ -9,7 +9,7 @@ File | Description
 -----|---------------
 `main.yml` | Example Ansible playbook
 
-Ansible configuration [^RQw4w] in the [`Vagrantfile`][`Vagrantfile`]:
+Ansible configuration [^RQw4w] in the [`Vagrantfile`](`Vagrantfile`):
 
 ```ruby
 #...
