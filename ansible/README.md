@@ -6,6 +6,6 @@ sudo dnf install -y ansible
 ```
 
 [^p3z9q]: Ansible Provisioner, Vagrant Documentation  
-<https://developer.hashicorp.com/vagrant/docs/provisioning/ansible_intro>
+<https://developer.hashicorp.com/vagrant/docs/provisioning/ansible_intro>  
 <https://developer.hashicorp.com/vagrant/docs/provisioning/ansible>
 
