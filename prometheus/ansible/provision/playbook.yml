@@ -1,0 +1,50 @@
+---
+- hosts: monitor_server
+  become: true
+  tasks:
+    - name: Install dependency packages
+      ansible.builtin.dnf:
+        name:
+          - podman
+        state: installed
+
+    - name: Sync Prometheus configuration
+      ansible.posix.synchronize:
+        src: files/etc/prometheus
+        dest: /etc
+
+    - name: Create Prometheus storage directory
+      ansible.builtin.file:
+        path: /srv/prometheus
+        state: directory
+        mode: '0755'
+
+    - name: Create Monitor Podman Pod
+      containers.podman.podman_pod:
+        name: monitor_pod
+        state: started
+        ports:
+          - "9090:9090" # Prometheus
+          - "3000:3000" # Grafana
+
+    - name: Node-Exporter container
+      containers.podman.podman_container:
+        pod: monitor_pod
+        name: node-exporter
+        image: quay.io/prometheus/node-exporter:v1.7.0
+        volume:
+          - /:/host:ro,rslave
+
+    - name: Prometheus container
+      containers.podman.podman_container:
+        pod: monitor_pod
+        name: prometheus-server
+        image: quay.io/prometheus/prometheus:v2.45.4
+        volume:
+          - /etc/prometheus:/etc/prometheus:ro
+          - /srv/prometheus:/srv/prometheus:rw,U,Z
+        mount:
+        command:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/srv/prometheus'
+
