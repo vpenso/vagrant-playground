@@ -1,13 +1,12 @@
 Example deployment of Prometheus [^drUjk] &  Grafana [^ueDCq]…
 
 - …using the Ansible [^p3z9q] [^RQw4w] configuration in the
-  [`provision/`](`provision`) sub-directory
+  [`provision/`](provision/) sub-directory
 - Access the web-interfaces…
   - Prometheus <http://192.168.124.11:9090>
   - Grafana <http://192.168.124.11:3000> …login as `admin` password `secret123`
 
-Service configuration in [`etc/`](`provision/files/etc`) is synchronized during
-deployment.
+Check the service state after `vagrant up`:
 
 ```bash
 # Check the pod status
@@ -23,6 +22,11 @@ POD ID        NAME        STATUS      CREATED         INFRA ID      # OF CONTAIN
 >>> systemctl status container-prometheus.service
 #...
 ```
+
+Service configuration in [`provision/files/etc/`](provision/files/etc) is 
+synchronized during deployment to `/etc/{prometheus,grafana}`
+
+- …data storage volumes mounted to `/srv/promehteus` and `/var/lib/grafana`
 
 [^drUjk]: Prometheus Project  
 <https://github.com/prometheus/prometheus>  

@@ -3,6 +3,7 @@
   ansible.posix.synchronize:
     src: files/etc/prometheus
     dest: /etc
+  notify: prometheus_restart
 
 - name: Create Prometheus storage directory
   ansible.builtin.file:

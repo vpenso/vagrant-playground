@@ -2,6 +2,7 @@
 - hosts: monitor_server
   become: true
   handlers:
+    - ansible.builtin.import_tasks: handlers/prometheus.yml
     - ansible.builtin.import_tasks: handlers/grafana.yml
   tasks:
     - ansible.builtin.include_tasks: tasks/monitoring-pod.yml

@@ -1,0 +1,6 @@
+---
+- name: Restart Prometheus container
+  ansible.builtin.systemd_service:
+    name: container-prometheus.service
+    state: restarted
+  listen: prometheus_restart
