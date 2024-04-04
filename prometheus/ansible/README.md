@@ -24,8 +24,9 @@ POD ID        NAME        STATUS      CREATED         INFRA ID      # OF CONTAIN
 ```
 
 Service configuration in [`provision/files/etc/`](provision/files/etc) is 
-synchronized during deployment to `/etc/{prometheus,grafana}`
+synchronized during deployment 
 
+- …to sub-directories `/etc/{prometheus,grafana}`
 - …data storage volumes mounted to `/srv/promehteus` and `/var/lib/grafana`
 
 [^drUjk]: Prometheus Project  
