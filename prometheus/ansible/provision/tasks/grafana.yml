@@ -7,13 +7,13 @@
 
 - name: Create Grafana storage directory
   ansible.builtin.file:
-    path: /var/lib/grafana
+    path: /srv/grafana
     state: directory
     mode: '0755'
 
-- name: Create Grafana log directory
+- name: Create Grafana components directory
   ansible.builtin.file:
-    path: /var/log/grafana
+    path: /var/lib/grafana
     state: directory
     mode: '0755'
 
@@ -25,7 +25,6 @@
     volume:
       - /etc/grafana:/etc/grafana:ro
       - /var/lib/grafana:/var/lib/grafana:rw,U,Z
-      - /var/log/grafana:/var/log/grafana:rw,U,Z
     generate_systemd:
       path: /etc/systemd/system
       restart_policy: on-failure

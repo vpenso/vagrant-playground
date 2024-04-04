@@ -1,0 +1,13 @@
+---
+- name: Create Grafana dashboards directory
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards/node-exporter
+    state: directory
+    mode: '0755'
+
+- name: Download Node-Exporter Dashboard from GitHub
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/rfmoz/grafana-dashboards/master/prometheus/node-exporter-full.json
+    dest: /var/lib/grafana/dashboards/node-exporter/dashboard.json
+  notify: grafana_restart
+

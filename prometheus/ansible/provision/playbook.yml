@@ -8,3 +8,4 @@
     - ansible.builtin.include_tasks: tasks/monitoring-pod.yml
     - ansible.builtin.include_tasks: tasks/prometheus.yml
     - ansible.builtin.include_tasks: tasks/grafana.yml
+    - ansible.builtin.include_tasks: tasks/grafana-dashboard-node-exporter.yml
