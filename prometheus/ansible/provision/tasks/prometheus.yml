@@ -17,6 +17,16 @@
     image: quay.io/prometheus/node-exporter:v1.7.0
     volume:
       - /:/host:ro,rslave
+    generate_systemd:
+      path: /etc/systemd/system
+      restart_policy: on-failure
+
+- name: Enable Node-Exporter container
+  ansible.builtin.systemd_service:
+    name: container-node-exporter.service
+    daemon_reload: yes
+    enabled: true
+    state: started
 
 - name: Prometheus container
   containers.podman.podman_container:
@@ -29,3 +39,13 @@
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/srv/prometheus'
+    generate_systemd:
+      path: /etc/systemd/system
+      restart_policy: on-failure
+
+- name: Enable Prometheus container
+  ansible.builtin.systemd_service:
+    name: container-prometheus.service
+    daemon_reload: yes
+    enabled: true
+    state: started

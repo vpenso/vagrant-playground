@@ -2,16 +2,6 @@
 - hosts: monitor_server
   become: true
   tasks:
-    - name: Install dependency packages
-      ansible.builtin.dnf:
-        name: podman
-
-    - name: Create a common pod for monitoring
-      containers.podman.podman_pod:
-        name: monitoring
-        ports:
-          - "9090:9090" # Prometheus
-          - "3000:3000" # Grafana
-
+    - ansible.builtin.include_tasks: tasks/monitoring-pod.yml
     - ansible.builtin.include_tasks: tasks/prometheus.yml
     - ansible.builtin.include_tasks: tasks/grafana.yml
