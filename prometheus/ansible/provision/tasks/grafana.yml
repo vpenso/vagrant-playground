@@ -1,0 +1,28 @@
+---
+- name: Sync Grafana configuration
+  ansible.posix.synchronize:
+    src: files/etc/grafana
+    dest: /etc
+
+- name: Create Grafana storage directory
+  ansible.builtin.file:
+    path: /var/lib/grafana
+    state: directory
+    mode: '0755'
+
+- name: Create Grafana log directory
+  ansible.builtin.file:
+    path: /var/log/grafana
+    state: directory
+    mode: '0755'
+
+- name: Grafana container
+  containers.podman.podman_container:
+    pod: monitoring
+    name: grafana
+    image: docker.io/grafana/grafana-oss:10.2.6
+    volume:
+      - /etc/grafana:/etc/grafana:ro
+      - /var/lib/grafana:/var/lib/grafana:rw,U,Z
+      - /var/log/grafana:/var/log/grafana:rw,U,Z
+
