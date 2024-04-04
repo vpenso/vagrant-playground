@@ -9,4 +9,13 @@
     ports:
       - "9090:9090" # Prometheus
       - "3000:3000" # Grafana
+    generate_systemd:
+      path: /etc/systemd/system
+      restart-policy: on-failure
 
+- name: Enable common monitoring pod
+  ansible.builtin.systemd_service:
+    name: pod-monitoring.service
+    daemon_reload: yes
+    enabled: true
+    state: started
