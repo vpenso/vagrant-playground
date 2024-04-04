@@ -1,0 +1,24 @@
+---
+- hosts: monitor_server
+  become: true
+  tasks:
+    - name: Install dependency packages
+      ansible.builtin.dnf:
+        name:
+          - git
+          - podman
+        state: installed
+
+    - name: Create Monitor Podman Pod
+      containers.podman.podman_pod:
+        name: monitor_pod
+        state: started
+        ports:
+          - "9090:9090" # Prometheus
+          - "3000:3000" # Grafana
+
+    - name: Node-Exporter container
+      containers.podman.podman_container:
+        name: node-exporter
+        image: quay.io/prometheus/node-exporter
+        pod: monitor_pod
