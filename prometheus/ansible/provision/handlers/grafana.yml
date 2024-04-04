@@ -1,0 +1,6 @@
+---
+- name: Restart Grafana container
+  ansible.builtin.systemd_service:
+    name: container-grafana.service
+    state: restarted
+  listen: grafana_restart

@@ -3,6 +3,7 @@
   ansible.posix.synchronize:
     src: files/etc/grafana
     dest: /etc
+  notify: grafana_restart
 
 - name: Create Grafana storage directory
   ansible.builtin.file:
@@ -25,4 +26,14 @@
       - /etc/grafana:/etc/grafana:ro
       - /var/lib/grafana:/var/lib/grafana:rw,U,Z
       - /var/log/grafana:/var/log/grafana:rw,U,Z
+    generate_systemd:
+      path: /etc/systemd/system
+      restart_policy: on-failure
+
+- name: Enable Grafana container
+  ansible.builtin.systemd_service:
+    name: container-grafana.service
+    daemon_reload: yes
+    enabled: true
+    state: started
 
