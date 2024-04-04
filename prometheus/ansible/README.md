@@ -29,6 +29,8 @@ synchronized during deployment
 - …to sub-directories `/etc/{prometheus,grafana}`
 - …data storage volumes mounted to `/srv/promehteus` and `/var/lib/grafana`
 
+Use `podman logs $container_name` for debugging the services
+
 [^drUjk]: Prometheus Project  
 <https://github.com/prometheus/prometheus>  
 <https://prometheus.io/docs>
