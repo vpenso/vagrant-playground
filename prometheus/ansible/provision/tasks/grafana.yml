@@ -24,6 +24,7 @@
     image: docker.io/grafana/grafana-oss:10.2.6
     volume:
       - /etc/grafana:/etc/grafana:ro
+      - /srv/grafana:/srv/grafana:rw,U,Z
       - /var/lib/grafana:/var/lib/grafana:rw,U,Z
     generate_systemd:
       path: /etc/systemd/system
