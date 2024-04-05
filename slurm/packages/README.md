@@ -1,4 +1,15 @@
-# Test Custom Slurm Packages
+# Test Slurm Packages
+
+## Fedora EPEL 
+
+[`fedora-epel/Vagrantfile`](fedora-epel/Vagrantfile) performs the following configuration:
+
+- Installs `slurm*` packages from EPEL 9 with version 22.05 [^c8lWg]
+- Configures MUNGE …starts all services
+- Uses the `slurm.conf` shipped by the Fedora Project
+
+[^c8lWg]: Fedora Slurm Package, Fedora Project  
+<https://packages.fedoraproject.org/pkgs/slurm/slurm>
 
 ## Local Repository
 
