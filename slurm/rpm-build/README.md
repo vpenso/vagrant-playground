@@ -1,5 +1,8 @@
-Test custom build Slurm RPMs by coping packages from `~/rpmbuild/RPMS/x86_64/`
-from the host to `/localrepo` in the Vagrant instance.
+Test custom build Slurm RPMs…
+
+- …by coping packages from `~/rpmbuild/RPMS/x86_64/` from the host
+- …to `/localrepo` in the Vagrant instance
+
 [`Vagrantfile`](Vagrantfile) performs the following configuration:
 
 ```bash
