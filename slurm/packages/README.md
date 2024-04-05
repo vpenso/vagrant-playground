@@ -1,9 +1,13 @@
+# Test Custom Slurm Packages
+
+## Local Repository
+
 Test custom build Slurm RPMs…
 
 - …by coping packages from `~/rpmbuild/RPMS/x86_64/` from the host
 - …to `/localrepo` in the Vagrant instance
 
-[`Vagrantfile`](Vagrantfile) performs the following configuration:
+[`localrepo/Vagrantfile`](localrepo/Vagrantfile) performs the following configuration:
 
 ```bash
 # Install Yum package repository tools
