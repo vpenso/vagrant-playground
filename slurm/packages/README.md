@@ -29,6 +29,53 @@ cd /localrepo && createrepo $PWD
 dnf makecache -y
 ```
 
+Test packages by installing them manually …simple example Slurm configuration:
+
+```bash
+cat > /etc/slurm/slurm.conf <<EOF
+ClusterName=test
+AuthType=auth/slurm
+CredType=cred/slurm
+MpiDefault=pmix
+ProctrackType=proctrack/cgroup
+ReturnToService=1
+InactiveLimit=0
+KillWait=30
+MinJobAge=300
+SlurmctldTimeout=120
+SlurmdTimeout=300
+Waittime=0
+SlurmUser=root
+
+SlurmctldHost=localhost
+SlurmctldPidFile=/var/run/slurm/slurmctld.pid
+SlurmctldPort=6817
+SlurmctldParameters=enable_configless
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+SlurmctldDebug=debug5
+
+SlurmdPidFile=/var/run/slurm/slurmd.pid
+SlurmdPort=6818
+SlurmdSpoolDir=/var/spool/slurm/d
+SlurmdLogFile=/var/log/slurm/slurmd.log
+SlurmdDebug=debug5
+
+StateSaveLocation=/var/spool/slurm/ctld
+SwitchType=switch/none
+TaskPlugin=task/none
+SchedulerType=sched/backfill
+SelectType=select/linear
+AccountingStorageType=accounting_storage/none
+AccountingStoreFlags=job_comment
+JobCompType=jobcomp/none
+JobAcctGatherFrequency=30
+JobAcctGatherType=jobacct_gather/none
+
+NodeName=localhost CPUs=1 State=UNKNOWN
+PartitionName=debug Nodes=localhost Default=YES MaxTime=INFINITE State=UP
+EOF
+```
+
 ## Custom Repository
 
 Configure a custom Yum repository storing Slurm packages by setting the
