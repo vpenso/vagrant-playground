@@ -9,6 +9,7 @@ workload management system use in HPC (High-Performance Computing).
 
 Directory | Description
 ----------|--------------
-`packages`| Test custom build Slurm package
-`cluster` | Setup with multiple nodes including an accounting database
+`ansible` | Configuration of Slurm with Ansible
+`cluster` | Dedicated `slurm{dbd,ctld}`, accounting database & multiple execution nodes
+`packages`| Work with different custom build Slurm packages
 
