@@ -1,0 +1,6 @@
+---
+- name: restart slurmctld
+  ansible.builtin.systemd_service:
+    name: slurmctld.service
+    state: restarted
+  listen: slurmctld_restart

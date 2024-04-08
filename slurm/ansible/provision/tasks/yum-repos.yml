@@ -1,0 +1,7 @@
+- name: install package epel-release
+  ansible.builtin.dnf:
+    name: epel-release
+
+- name: enable powertools repository
+  community.general.dnf_config_manager:
+    name: powertools

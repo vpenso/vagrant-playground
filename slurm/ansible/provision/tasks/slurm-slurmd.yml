@@ -1,0 +1,10 @@
+- name: install slurmctld package
+  ansible.builtin.dnf:
+    name: slurm-slurmd
+
+- name: enable & start slurmd
+  ansible.builtin.systemd_service:
+    name: slurmd.service
+    enabled: true
+    state: started
+

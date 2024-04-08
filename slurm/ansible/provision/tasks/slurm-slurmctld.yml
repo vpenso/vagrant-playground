@@ -1,3 +1,9 @@
 - name: install slurmctld package
   ansible.builtin.dnf:
     name: slurm-slurmctld
+
+- name: sync config to /etc/slurm
+  ansible.posix.synchronize:
+    src: files/etc/slurm
+    dest: /etc
+  notify: slurmctld_restart

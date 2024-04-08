@@ -1,3 +1,0 @@
-- name: install package epel-release
-  ansible.builtin.dnf:
-    name: epel-release

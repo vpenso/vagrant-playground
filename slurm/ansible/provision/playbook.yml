@@ -2,20 +2,15 @@
 - hosts: slurm
   become: true
   vars_files:
-  - vars/slurm-packages.yml
+    - vars/slurm-packages.yml
+  handlers:
+    - ansible.builtin.import_tasks: handlers/slurmctld.yml
   tasks:
-
-  - name: dnf update system
-    ansible.builtin.dnf:
-      name: '*'
-      state: latest
-
-  - ansible.builtin.include_tasks: tasks/time.yml
-  - ansible.builtin.include_tasks: tasks/firewalld.yml
-  - ansible.builtin.include_tasks: tasks/epel.yml
-  - ansible.builtin.include_tasks: tasks/munge.yml
-
-  # install Slurm from a custom package repository
-  - ansible.builtin.include_tasks: tasks/slurm-packages.yml
-  - ansible.builtin.include_tasks: tasks/slurm-user.yml
-  - ansible.builtin.include_tasks: tasks/slurm-slurmctld.yml
+    - ansible.builtin.include_tasks: tasks/time.yml
+    - ansible.builtin.include_tasks: tasks/firewalld.yml
+    - ansible.builtin.include_tasks: tasks/yum-repos.yml
+    - ansible.builtin.include_tasks: tasks/munge.yml
+    - ansible.builtin.include_tasks: tasks/slurm-packages.yml
+    - ansible.builtin.include_tasks: tasks/slurm-user.yml
+    - ansible.builtin.include_tasks: tasks/slurm-slurmctld.yml
+    - ansible.builtin.include_tasks: tasks/slurm-slurmd.yml
