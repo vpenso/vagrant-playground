@@ -1,0 +1,17 @@
+- name: install munge package
+  ansible.builtin.dnf:
+    name: munge
+
+- name: munge.key configure
+  copy:
+    content: 030340d651edb16efabf24a8c080d4b7
+    dest: /etc/munge/munge.key
+    owner: munge
+    group: munge
+    mode: '0600'
+
+- name: munge.service enable
+  systemd:
+    name: munge
+    state: started
+    enabled: yes

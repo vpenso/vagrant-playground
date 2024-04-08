@@ -1,0 +1,40 @@
+- name: set-timezone.service configure
+  register: set_timezone
+  copy:
+    dest: /etc/systemd/system/set-timezone.service
+    content: |
+      [Unit]
+      Description=Set the time zone to Europe/Berlin
+      [Service]
+      ExecStart=/usr/bin/timedatectl set-timezone Europe/Berlin
+      RemainAfterExit=yes
+      Type=oneshot
+
+- name: set-timezone.service enable
+  when: set_timezone.changed
+  systemd:
+    daemon_reload: yes
+    name: set-timezone.service
+    state: started
+    enabled: yes
+
+- name: set-time-local-rtc.service configure
+  register: set_time_local_rtc
+  copy:
+    dest: /etc/systemd/system/set-time-local-rtc.service
+    content: |
+        [Unit]
+        Description=No timesync with the local hardware clock
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-local-rtc 0
+        RemainAfterExit=yes
+        Type=oneshot
+
+- name: set-time-local-rtc.service enable
+  when: set_time_local_rtc.changed
+  systemd:
+    daemon_reload: yes
+    name: set-time-local-rtc.service
+    state: started
+    enabled: yes
+

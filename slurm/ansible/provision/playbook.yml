@@ -1,0 +1,11 @@
+---
+- hosts: slurm
+  become: true
+  vars_files:
+  - vars/slurm-packages.yml
+  tasks:
+  - ansible.builtin.include_tasks: tasks/time.yml
+  - ansible.builtin.include_tasks: tasks/firewalld.yml
+  - ansible.builtin.include_tasks: tasks/epel.yml
+  - ansible.builtin.include_tasks: tasks/slurm-packages.yml
+  - ansible.builtin.include_tasks: tasks/munge.yml

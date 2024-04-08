@@ -1,0 +1,9 @@
+- name: Add Slurm Yum RPM package repository
+  ansible.builtin.copy:
+    dest: /etc/yum.repos.d/slurm-packages.repo
+    content: |
+      [slurm-packages]
+      name = slurm-packages
+      baseurl = {{ slurm_repo }}
+      enabled = 1
+      gpgcheck = 0
