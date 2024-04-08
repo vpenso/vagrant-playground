@@ -1,0 +1,30 @@
+- name: create slurm group
+  ansible.builtin.group:
+    system: true
+    name: slurm
+    gid: 900
+
+- name: create slurm user
+  ansible.builtin.user:
+    system: true
+    name: slurm
+    group: slurm
+    uid: 900
+    home: /var/lib/slurm
+    create_home: false
+    shell: /bin/bash
+
+- name: create slurm diretories
+  ansible.builtin.file:
+    state: directory
+    name: "{{ item }}"
+    owner: slurm
+    group: slurm
+  with_items:
+    - /etc/slurm
+    - /var/lib/slurm
+    - /var/log/slurm
+    - /var/run/slurm
+    - /var/spool/slurm/d
+    - /var/spool/slurm/ctld
+

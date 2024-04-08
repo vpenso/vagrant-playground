@@ -1,0 +1,3 @@
+- name: install slurmctld package
+  ansible.builtin.dnf:
+    name: slurm-slurmctld
