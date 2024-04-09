@@ -7,3 +7,10 @@
     src: files/etc/slurm
     dest: /etc
   notify: slurmctld_restart
+
+- name: enable/start slurmctld.service
+  ansible.builtin.systemd_service:
+    name: slurmctld.service
+    enabled: true
+    state: started
+

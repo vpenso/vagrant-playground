@@ -2,7 +2,7 @@
   ansible.builtin.dnf:
     name: slurm-slurmd
 
-- name: enable & start slurmd
+- name: enable/start slurmd.service
   ansible.builtin.systemd_service:
     name: slurmd.service
     enabled: true
