@@ -11,11 +11,11 @@ vagrant up
 Path | Description
 -----|--------------
 `main.yml` | Playbook executed by the Vagrant Ansible Provisioner
-`vars` | Variables [^65gbG] defined for the playbook
-`tasks` | Tasks used by the playbook
-`files` | Files used by the plabook
-`handlers` | Handlers [^QmiJU] used by the playbook
-`templates` | Templates [^uoX3u] used by the playbook
+`vars/` | Variables [^65gbG] defined for the playbook
+`tasks/` | Tasks used by the playbook
+`files/` | Files used by the plabook
+`handlers/` | Handlers [^QmiJU] used by the playbook
+`templates/` | Templates [^uoX3u] used by the playbook
 
 [^p3z9q]: Ansible Provisioner, Vagrant Documentation  
 <https://developer.hashicorp.com/vagrant/docs/provisioning/ansible_intro>  
