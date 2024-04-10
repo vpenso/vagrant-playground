@@ -1,8 +1,16 @@
-Directory | Description
-----------|-------------
-`minimal-provisioner` | Most simple example how to use the Vagrant Ansible Provisioner
-`advanced-provisioner` | Example with a playbook including tasks, vars, files, templates
-`without-provisioner` | Configure a Vagrant instance with Ansible without using the Vagrant Ansible Provisioner
+Ansible example in the sub-directories…
+
+- [`minimal-provisioner`](minimal-provisioner)
+  - Use the Vagrant Ansible Provisioner to configure a Vagrant instance
+  - Most simple example with a single `main.yml` Ansible configuration file
+- [`advanced-provisioner`](advanced-provisioner)
+  - Use the Vagrant Ansible Provisioner to configure a Vagrant instance
+  - Example with playbook skeleton structure including tasks, files, handlers and templates
+- [`without-provisioner`](without-provisioner) 
+  - **Does not use the Vagrant Ansible Provisioner**
+  - Manually configures Ansible to access the Vagrant instances
+
+
 
 
 
