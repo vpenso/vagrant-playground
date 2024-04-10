@@ -1,0 +1,21 @@
+# vi: set ft=ruby
+
+Vagrant.configure("2") do |config|
+
+  nodes = [ 'alpha', 'beta' ]
+
+  (0..(nodes.length - 1)).each do |num|
+    name = nodes[num]
+    config.vm.define "#{name}" do |node|
+      node.vm.box = "almalinux/8"
+      node.vm.provider :libvirt do |libvirt|
+        libvirt.memory = 1024
+        libvirt.cpus = 1
+        libvirt.qemu_use_session = false
+      end
+      node.vm.hostname = name
+      node.vm.network "private_network", ip: "192.168.18.#{80+num}"
+    end
+  end
+
+end
