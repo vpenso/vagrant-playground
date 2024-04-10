@@ -1,4 +1,10 @@
-[`Vagrantfile`](Vagrantfile):
+Configure Vagrant instances **without using the Vagrant Ansible Provisioner**
+[^qPIGM]
+
+[^qPIGM]: Ansible Provisioner, Vagrant Documentation  
+<https://developer.hashicorp.com/vagrant/docs/provisioning/ansible>
+
+Configure two Vagrant instances with [`Vagrantfile`](Vagrantfile):
 
 - Defines two virtual machine instance `alpha` and `beta`
 - Set IP-addresses to 192.168.18.80 and 192.168.18.81
