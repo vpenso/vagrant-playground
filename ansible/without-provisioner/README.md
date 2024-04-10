@@ -4,6 +4,8 @@ Configure Vagrant instances **without using the Vagrant Ansible Provisioner**
 [^qPIGM]: Ansible Provisioner, Vagrant Documentation  
 <https://developer.hashicorp.com/vagrant/docs/provisioning/ansible>
 
+### Vagrant Instances
+
 Configure two Vagrant instances with [`Vagrantfile`](Vagrantfile):
 
 - Defines two virtual machine instance `alpha` and `beta`
@@ -21,6 +23,8 @@ vagrant destroy alpha
 # ...login over SSH
 vagrant ssh alpha
 ```
+
+### Ansible Configuration
 
 The [`hosts`](hosts) inventory file referencing both virtual machines by IP-address
 
