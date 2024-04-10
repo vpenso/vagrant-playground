@@ -1,0 +1,22 @@
+---
+- name: install httpd package
+  ansible.builtin.package:
+    name: httpd
+    state: installed
+
+- name: start/enable httpd.service
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: copy index.html to /var/www/html
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /var/www/html/index.html
+
+- name: configure the http server
+  ansible.builtin.template:
+    src: templates/site.conf.j2
+    dest: /etc/httpd/conf.d/site.conf
+  notify: httpd_restart

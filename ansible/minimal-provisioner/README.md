@@ -1,4 +1,4 @@
-Example hos to use Ansible provisioner [^p3z9q] for a Vagrant instance…
+Minimal example how to  use Ansible provisioner [^p3z9q] for a Vagrant instance…
 
 ```bash
 # install Ansible on your host machine
@@ -7,9 +7,9 @@ sudo dnf install -y ansible
 
 File | Description
 -----|---------------
-`main.yml` | Example Ansible playbook
+[`main.yml`](main.yml) | Ansible playbook example
 
-Ansible configuration [^RQw4w] in the [`Vagrantfile`](`Vagrantfile`):
+Ansible configuration [^RQw4w] in the [`Vagrantfile`](Vagrantfile):
 
 ```ruby
 #...

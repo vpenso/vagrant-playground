@@ -1,0 +1,25 @@
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+
+  config.vm.define "test_http_server"   # guest name used in Ansible groups
+
+  config.vm.box = "rockylinux/9"
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = 1024
+    libvirt.cpus = 2
+    libvirt.qemu_use_session = false
+  end
+
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.raw_ssh_args = ['-o UserKnownHostsFile=/dev/null']
+    ansible.host_key_checking = false
+    #ansible.verbose = 'vvv'
+    ansible.playbook = "provision/main.yml"
+    ansible.groups = { "http_server" => "test_http_server" }
+    ansible.host_vars = { "http_test" => { "http_port" => 8080 } }
+  end
+
+end

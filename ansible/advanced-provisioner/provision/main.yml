@@ -1,0 +1,9 @@
+---
+- hosts: http_server
+  become: true
+  vars_files:
+    - vars/http-server.yml
+  handlers:
+    - ansible.builtin.import_tasks: handlers/http-server.yml
+  tasks:
+    - ansible.builtin.include_tasks: tasks/http-server.yml
