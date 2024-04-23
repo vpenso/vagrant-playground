@@ -14,10 +14,10 @@ hosts = %q(
 )
 
 # Configuration for the Yum repository
-yum_repo = "
-[site-packages]
-name = site-packages
-baseurl = # TODO: add a URL to the repository
+slurm_repo = "
+[slurm-packages]
+name = slurm-packages
+baseurl = #{ENV['SLURM_REPO']}
 enabled = 1
 gpgcheck = 0
 "
@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
 
   # Add a Yum repository configuration file on all nodes
   config.vm.provision "shell", privileged: true,
-    inline: %Q(echo "#{yum_repo}" > /etc/yum.repos.d/site-packages.repo)
+    inline: %Q(echo "#{slurm_repo}" > /etc/yum.repos.d/slurm-packages.repo)
 
   # Install and configure MUNGE on all nodes
   config.vm.provision "shell" do |s|
@@ -95,7 +95,7 @@ Vagrant.configure("2") do |config|
 
   # TODO: ...add configurations for more service nodes
 
-  nodes = %w(ex0 ex1 ex2 ex3)
+  nodes = %w(ex0 ex1 ex2)
   (0..(nodes.length - 1)).each do |num|
     name = nodes[num]
     config.vm.define "#{name}" do |node|
@@ -115,5 +115,16 @@ Vagrant.configure("2") do |config|
       end
     end
   end
+
+  config.vm.define  "ex3" do |node|
+    node.vm.hostname = "ex3"
+    node.vm.network :private_network, 
+      :ip => "192.168.200.23",
+      :libvirt__network_name => "custom"
+
+    node.vm.provision "shell", privileged: true,
+      inline: "dnf install -y slurm-slurmd"
+  end
+  
 
 end
