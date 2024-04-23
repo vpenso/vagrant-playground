@@ -72,8 +72,8 @@ Vagrant.configure("2") do |config|
               --no-create-home --home-dir /var/lib/slurm \
               --comment "SLURM workload manager"
       mkdir -p /etc/slurm /var/{lib,log,run}/slurm /var/spool/slurm/{d,ctld}
-      chown slurm --recursive /var/lib/slurm /var/spool/slurm 
-      chgrp slurm --recursive /var/lib/slurm /var/spool/slurm 
+      chown slurm --recursive /var/{lib,spool,log}/slurm 
+      chgrp slurm --recursive /var/{lib,spool,log}/slurm
     )
   end
 
