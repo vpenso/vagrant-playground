@@ -1,0 +1,30 @@
+# vi: set ft=ruby :
+
+grafana_repo = "
+[grafana]
+name=grafana
+baseurl=https://rpm.grafana.com
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://rpm.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "rockylinux/9"
+  config.vm.network "private_network", ip: "192.168.124.46"
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = 1024
+    libvirt.qemu_use_session = false
+  end
+  config.vm.provision "shell", privileged: true , inline: <<-SHELL
+    dnf install -y wget
+    echo "#{grafana_repo}" > /etc/yum.repos.d/grafana.repo
+    wget -q -O gpg.key https://rpm.grafana.com/gpg.key
+    rpm --import gpg.key
+    dnf install -y grafana
+  SHELL
+end
