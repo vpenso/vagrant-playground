@@ -34,14 +34,14 @@ Download a model [^mcEwD]:
 ollama pull llama3
 ```
 
-### Web UI
-
 Install a web UI [^Paxbk]:
 
 [^Paxbk]: Open WebUI for Ollama, Github  
 <https://github.com/open-webui/open-webui>
 
 ```bash
-podman run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+podman run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway \
+            -v open-webui:/app/backend/data --name open-webui \
+            --restart always ghcr.io/open-webui/open-webui:main
 ```
 
