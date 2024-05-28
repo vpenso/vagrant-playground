@@ -10,4 +10,7 @@ Vagrant.configure("2") do |config|
     libvirt.memory = 1024
     libvirt.qemu_use_session = false
   end
+  config.vm.provision "shell", privileged: true , inline: <<-SHELL
+    dnf install -y podman
+  SHELL
 end
