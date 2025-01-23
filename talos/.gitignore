@@ -1,3 +1,4 @@
-talos*
 *.yaml
 *.iso
+talos*
+kube*
