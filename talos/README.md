@@ -41,7 +41,7 @@ Configure the cluster API endpoint
 # controlplane.yaml
 network:
   interfaces:
-    - interface: enp0s1 # The interface name.
+    - interface: ens5 # make sure this is correct
       dhcp: true
       vip:
         ip: 192.168.121.100
@@ -59,7 +59,14 @@ talosctl -n $ip_wn2 apply-config --insecure --file worker.yaml
 talosctl config endpoint $ip_cp1 $ip_cp2 $ip_cp3
 talosctl --nodes $ip_cp1 bootstrap
 talosctl config node $ip_cp1
-talosctl --nodes $ip_cp1 kubeconfig ./kubeconfig
+talosctl health
+
+# verify that the interface name is correct
+talosctl -n $ip_cp1,$ip_cp2,$ip_cp3 get addresses
+# in case the VIP interface name needs to be adjusted
+talosctl edit machineconfig
+
+talosctl kubeconfig ./kubeconfig
 export KUBECONFIG=$(realpath kubeconfig)
 kubectl get node -owide
 ```
