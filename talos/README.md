@@ -32,6 +32,7 @@ kubectl --kubeconfig ./kubeconfig get node -owide
 ```bash
 vip=192.168.121.100
 talosctl gen config test https://$vip:6443 --install-disk /dev/vda
+export TALOSCONFIG=$(realpath ./talosconfig)
 ```
 
 Configure the cluster API endpoint
@@ -53,12 +54,13 @@ talosctl -n $ip_cp2 apply-config --insecure --file controlplane.yaml
 talosctl -n $ip_cp3 apply-config --insecure --file controlplane.yaml
 talosctl -n $ip_wn1 apply-config --insecure --file worker.yaml
 talosctl -n $ip_wn2 apply-config --insecure --file worker.yaml
-# once on a single controller
-alias talosctl='talosctl --talosconfig=./talosconfig'
-talosctl config endpoint $ip_cp1 $ip_cp2 $ip_cp3
+
 talosctl --nodes $ip_cp1 bootstrap
+talosctl config endpoint $ip_cp1 $ip_cp2 $ip_cp3
+talosctl config node $ip_cp1
+
 talosctl --nodes $ip_cp1 kubeconfig ./kubeconfig
-alias kubectl='kubectl --kubeconfig ./kubeconfig'
+export KUBECONFIG=$(realpath kubeconfig)
 kubectl get node -owide
 ```
 
