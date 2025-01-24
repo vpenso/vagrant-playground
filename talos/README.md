@@ -41,10 +41,10 @@ Configure the cluster API endpoint
 # controlplane.yaml
 network:
   interfaces:
-	 - interface: enp0s1 # The interface name.
-	   dhcp: true
-	   vip:
-		 ip: 192.168.121.100
+    - interface: enp0s1 # The interface name.
+      dhcp: true
+      vip:
+        ip: 192.168.121.100
 ```
 
 
