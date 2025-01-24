@@ -27,6 +27,41 @@ talosctl --nodes $ip_cp1 --endpoints $ip_cp1 kubeconfig ./kubeconfig
 kubectl --kubeconfig ./kubeconfig get node -owide
 ```
 
+## 3 Node Controller Plane 
+
+```bash
+vip=192.168.121.100
+talosctl gen config test https://$vip:6443 --install-disk /dev/vda
+```
+
+Configure the cluster API endpoint
+
+```yaml
+# controlplane.yaml
+network:
+  interfaces:
+	 - interface: enp0s1 # The interface name.
+	   dhcp: true
+	   vip:
+		 ip: 192.168.121.100
+```
+
+
+```bash
+talosctl -n $ip_cp1 apply-config --insecure --file controlplane.yaml
+talosctl -n $ip_cp2 apply-config --insecure --file controlplane.yaml
+talosctl -n $ip_cp3 apply-config --insecure --file controlplane.yaml
+talosctl -n $ip_wn1 apply-config --insecure --file worker.yaml
+talosctl -n $ip_wn2 apply-config --insecure --file worker.yaml
+# once on a single controller
+alias talosctl='talosctl --talosconfig=./talosconfig'
+talosctl config endpoint $ip_cp1 $ip_cp2 $ip_cp3
+talosctl --nodes $ip_cp1 bootstrap
+talosctl --nodes $ip_cp1 kubeconfig ./kubeconfig
+alias kubectl='kubectl --kubeconfig ./kubeconfig'
+kubectl get node -owide
+```
+
 ### References
 
 [^cxhRe]: Talos Releases, GitHub  
