@@ -49,16 +49,22 @@ network:
 
 
 ```bash
+# validate the modified configuration file
 talosctl validate -m metal -c controlplane.yaml
+
+# modifying the machine configuration (installs & reboots) 
 talosctl -n $ip_cp1 apply-config --insecure --file controlplane.yaml
 talosctl -n $ip_cp2 apply-config --insecure --file controlplane.yaml
 talosctl -n $ip_cp3 apply-config --insecure --file controlplane.yaml
 talosctl -n $ip_wn1 apply-config --insecure --file worker.yaml
 talosctl -n $ip_wn2 apply-config --insecure --file worker.yaml
 # wait for some time
+
 talosctl config endpoint $ip_cp1 $ip_cp2 $ip_cp3
 talosctl --nodes $ip_cp1 bootstrap
 talosctl config node $ip_cp1
+
+talosctl get members
 talosctl health
 
 # verify that the interface name is correct
