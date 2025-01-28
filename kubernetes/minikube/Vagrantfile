@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.provider :libvirt do |libvirt|
+    # make sure to have enough resources
+    libvirt.memory = 8192
+    libvirt.cpus = 10
+    libvirt.qemu_use_session = false
+  end
+
+  config.vm.define "alma9" do |node|
+    config.vm.box = "almalinux/9"
+    config.vm.hostname = "alma9"
+    config.vm.network "private_network", ip: "192.168.124.200"
+    config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
+  end
+
+  config.vm.provision "shell", privileged: true , inline: <<-SHELL
+    dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    dnf install -y git docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    systemctl enable --now docker
+    usermod -aG docker vagrant
+    dnf install -y https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+  SHELL
+
+end
